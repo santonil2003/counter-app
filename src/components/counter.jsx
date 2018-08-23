@@ -4,12 +4,26 @@ class Counter extends Component {
 	state = {
 		count: 1,
 		imageUrl: 'https://picsum.photos/200',
-		tags: [ 'tag1', 'tag2', 'tag3' ]
+		tags: []
 	};
 
 	styles = {
 		fontSize: 14,
 		fontWeigth: 'bold'
+	};
+
+	// constructor() {
+	// 	super();
+	// 	this.handleIncrement = this.handleIncrement.bind(this);
+	// }
+
+	// handleIncrement() {
+	// 	console.log('clicked', this);
+	// }
+
+	handleIncrement = (params) => {
+		console.log(params);
+		this.setState({ count: this.state.count + 1 });
 	};
 
 	formatCount() {
@@ -25,14 +39,24 @@ class Counter extends Component {
 		}
 	}
 
+	renderTags() {
+		if (this.state.tags.length === 0) {
+			return <p>No tags.</p>;
+		}
+
+		return (
+			<div>
+				<ul>{this.state.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+			</div>
+		);
+	}
+
 	render() {
 		return (
 			<div>
-				<img src={this.state.imageUrl} alt="" style={{ display: 'none' }} />
 				<span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-				<button className="btn btn-sm">Increment</button>
-
-				<ul>{this.state.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+				<button onClick={() => this.handleIncrement(4)}>Increment</button>
+				{Math.floor(Math.random() * 10) + 1}
 			</div>
 		);
 	}
